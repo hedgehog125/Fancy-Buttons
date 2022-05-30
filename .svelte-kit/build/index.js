@@ -67,7 +67,7 @@ export class Server {
 		}
 
 		if (!this.options.hooks) {
-			const module = await import("./hooks.js");
+			const module = await import("..\\..\\src\\hooks.js");
 			this.options.hooks = {
 				getSession: module.getSession || (() => ({})),
 				handle: module.handle || (({ event, resolve }) => resolve(event)),
