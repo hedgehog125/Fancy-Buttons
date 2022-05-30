@@ -1,9 +1,9 @@
 export const manifest = {
 	appDir: "_app",
-	assets: new Set(["favicon.png"]),
+	assets: new Set([".nojekyll","favicon.png"]),
 	mimeTypes: {".png":"image/png"},
 	_: {
-		entry: {"file":"start-c0162fd7.js","js":["start-c0162fd7.js","chunks/index-c3650d4a.js"],"css":[]},
+		entry: {"file":"start-fc5536c0.js","js":["start-fc5536c0.js","chunks/index-c3650d4a.js"],"css":[]},
 		nodes: [
 			() => import('./nodes/0.js'),
 			() => import('./nodes/1.js'),
