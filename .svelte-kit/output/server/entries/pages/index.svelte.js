@@ -3,6 +3,7 @@ import { b as base } from "../../chunks/paths-396f020f.js";
 const Routes = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   return `<main>Testing
 
-    <a href="${escape(base) + "/hmm"}">Hmm</a></main>`;
+    <a href="${escape(base) + "/hmm"}">Hmm</a>
+    <img src="${escape(base) + "/favicon.png"}" alt="${""}"></main>`;
 });
 export { Routes as default };

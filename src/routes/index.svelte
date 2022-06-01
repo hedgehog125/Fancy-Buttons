@@ -1,5 +1,5 @@
 <script>
-      import { base } from '$app/paths';
+    import { base } from "$app/paths";
 </script>
 
 
@@ -7,4 +7,5 @@
     Testing
 
     <a href="{base}/hmm">Hmm</a>
+    <img src="{base}/favicon.png" alt="">
 </main>
