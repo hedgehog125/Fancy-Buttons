@@ -1,12 +1,13 @@
 export const manifest = {
-	appDir: "_app",
+	appDir: "app",
 	assets: new Set([".nojekyll","favicon.png"]),
 	mimeTypes: {".png":"image/png"},
 	_: {
-		entry: {"file":"start-13685e4e.js","js":["start-13685e4e.js","chunks/index-c3650d4a.js"],"css":[]},
+		entry: {"file":"start-b4b85981.js","js":["start-b4b85981.js","chunks/index-c3650d4a.js","chunks/paths-396f020f.js"],"css":[]},
 		nodes: [
 			() => import('./nodes/0.js'),
 			() => import('./nodes/1.js'),
+			() => import('./nodes/3.js'),
 			() => import('./nodes/2.js')
 		],
 		routes: [
@@ -19,6 +20,17 @@ export const manifest = {
 				path: "/",
 				shadow: null,
 				a: [0,2],
+				b: [1]
+			},
+			{
+				type: 'page',
+				id: "hmm",
+				pattern: /^\/hmm\/?$/,
+				names: [],
+				types: [],
+				path: "/hmm",
+				shadow: null,
+				a: [0,3],
 				b: [1]
 			}
 		],

@@ -1,6 +1,7 @@
 import { minify } from "html-minifier";
-import { p as prerendering } from "./index-0b41be56.js";
+import { p as prerendering } from "./index-ceb4a045.js";
 import "./index-5f038599.js";
+import "./paths-396f020f.js";
 const minification_options = {
   collapseBooleanAttributes: true,
   collapseWhitespace: true,

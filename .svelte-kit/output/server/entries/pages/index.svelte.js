@@ -1,6 +1,8 @@
-import { c as create_ssr_component } from "../../chunks/index-5f038599.js";
+import { c as create_ssr_component, e as escape } from "../../chunks/index-5f038599.js";
+import { b as base } from "../../chunks/paths-396f020f.js";
 const Routes = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="${"https://kit.svelte.dev"}">kit.svelte.dev</a> to read the documentation</p>`;
+  return `<main>Testing
+
+    <a href="${escape(base) + "/hmm"}">Hmm</a></main>`;
 });
 export { Routes as default };

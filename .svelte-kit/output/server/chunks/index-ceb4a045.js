@@ -30,6 +30,7 @@ var __objRest = (source, exclude) => {
   return target;
 };
 import { c as create_ssr_component, s as setContext, v as validate_component, m as missing_component } from "./index-5f038599.js";
+import { s as set_paths, b as base, a as assets } from "./paths-396f020f.js";
 function afterUpdate() {
 }
 const Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -2223,12 +2224,6 @@ async function respond(request, options, state) {
     }
   }
 }
-let base = "";
-let assets = "";
-function set_paths(paths) {
-  base = paths.base;
-  assets = paths.assets || base;
-}
 let prerendering = false;
 function set_prerendering(value) {
   prerendering = value;
@@ -2265,7 +2260,7 @@ class Server {
       manifest,
       method_override: { "parameter": "_method", "allowed": [] },
       paths: { base, assets },
-      prefix: assets + "/_app/immutable/",
+      prefix: assets + "/app/immutable/",
       prerender: {
         default: true,
         enabled: true
@@ -2284,7 +2279,7 @@ class Server {
       throw new Error("The first argument to server.respond must be a Request object. See https://github.com/sveltejs/kit/pull/3384 for details");
     }
     if (!this.options.hooks) {
-      const module = await import("./hooks-2c346b8a.js");
+      const module = await import("./hooks-4172339c.js");
       this.options.hooks = {
         getSession: module.getSession || (() => ({})),
         handle: module.handle || (({ event, resolve: resolve2 }) => resolve2(event)),
