@@ -1,11 +1,12 @@
 <script>
     import { base } from "$app/paths";
+    import FancyButton from "../lib/FancyButton.svelte";
 </script>
 
-
 <main>
-    Testing
-
-    <a href="{base}/hmm">Hmm</a>
-    <img src="{base}/favicon.png" alt="">
+    <FancyButton></FancyButton>
 </main>
+
+<style>
+
+</style>
