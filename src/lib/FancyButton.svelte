@@ -26,7 +26,14 @@
     let clicking = false;
     let spamClicking = false;
 
-    let tint;
+    let tintEffects = [
+        {
+            x: 0,
+            y: 0,
+            scale: 0,
+            index: 0
+        }
+    ];
 
     let display = {
         hovering: false,
@@ -36,6 +43,9 @@
 
     const endHover = _ => {
         display.hovering = false;
+
+        tintEffects.splice(1); // Delete all but the last
+        tintEffects = tintEffects;
     };
 
     const enter = _ => {
@@ -62,7 +72,10 @@
     const endClick = _ => {
         display.clicking = false;
         display.rebound = true;
-        tint.style.transform = "";
+
+        for (let i in tintEffects) {
+            tintEffects[i].scale = 0;
+        }
 
         reboundTask = setTimeout(_ => {
             display.rebound = false;
@@ -87,12 +100,18 @@
 
         display.clicking = true;
         
-        let squareSize = (Math.max(Math.abs(x - 50), Math.abs(y - 50)) / 50) + 1.05;
+        let squareSize = (Math.max(Math.abs(x - 50), Math.abs(y - 50)) / 50) + 1.1;
         let scale = squareSize / CIRCLE_TO_SQUARE;
 
-        tint.style.left = (x - 50) + "%";
-        tint.style.top = (y - 50) + "%";
-        tint.style.transform = `scale(${scale})`;
+        tintEffects[tintEffects.length - 1] = {
+            x: x - 50,
+            y: y - 50,
+            scale: scale,
+            index: 0
+        };
+        //tint.style.left = (x - 50) + "%";
+        //tint.style.top = (y - 50) + "%";
+        //tint.style.transform = `scale(${scale})`;
 
 
         if (releaseEarlyTask != null) {
@@ -142,7 +161,9 @@
             )
         } on:mouseenter={enter} on:mouseleave={leave} on:mousedown={clickStart} on:mouseup={clickEnd}>
             <div class="content">Hmm</div>
-            <div bind:this={tint} class="tint"></div>
+            {#each tintEffects as tint (tint.index)}
+                <div class="tint" style="left:{tint.x}%;top:{tint.y}%;transform:scale({tint.scale});"></div>
+            {/each}
         </button>
     </div>
 </main>
