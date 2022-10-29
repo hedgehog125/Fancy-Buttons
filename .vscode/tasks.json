@@ -1,0 +1,120 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build static",
+			"options": {
+				"cwd": "${workspaceFolder}/static/"
+			},
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Test build static (no base URL)",
+			"options": {
+				"cwd": "${workspaceFolder}/static/",
+				"env": {
+					"DISABLE_BASE_URL": "true"
+				}
+			},
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Preview last build",
+			"options": {
+				"cwd": "${workspaceFolder}/static/"
+			},
+			"command": "npm",
+			"args": [
+				"run",
+				"preview"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Deploy last build",
+			"options": {
+				"cwd": "${workspaceFolder}/tools/"
+			},
+			"command": "node",
+			"args": [
+				"deployBuild.js"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Dev static",
+			"options": {
+				"cwd": "${workspaceFolder}/static/"
+			},
+			"command": "npm",
+			"args": [
+				"run",
+				"dev"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Start backend",
+			"options": {
+				"cwd": "${workspaceFolder}/server/"
+			},
+			"command": "node",
+			"args": [
+				"index.js"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Gzip last build",
+			"options": {
+				"cwd": "${workspaceFolder}/tools/"
+			},
+			"command": "node",
+			"args": [
+				"gzip.js"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Install dependencies",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"command": "./devInstall.sh",
+			"args": [],
+			"problemMatcher": []
+		},
+		{
+			"label": "Delete build",
+			"options": {
+				"cwd": "${workspaceFolder}/tools/"
+			},
+			"command": "node",
+			"args": [
+				"deleteBuild.js"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "Delete gzipped build",
+			"options": {
+				"cwd": "${workspaceFolder}/tools/"
+			},
+			"command": "node",
+			"args": [
+				"deleteGzippedBuild.js"
+			],
+			"problemMatcher": []
+		}
+	]
+}

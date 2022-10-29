@@ -1,3 +1,11 @@
+# Specific to this program
+
+# From sveltekit gitignore
+.DS_Store
+.svelte-kit
+.vercel_build_output
+
+
 # Logs
 logs
 *.log
@@ -130,4 +138,6 @@ dist
 .pnp.*
 
 .vs
-.vscode
+# You might want to change this to just exclude .vscode
+.vscode/*
+!.vscode/tasks.json
