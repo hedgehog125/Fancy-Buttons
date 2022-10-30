@@ -1,7 +1,12 @@
 <script>
+    import { onMount } from "svelte";
+
 	/*
 	TODO
 
+	Handle hold touches. Prevent context menu. Doesn't seem to trigger the mouse events as well. Maybe use e.sourceCapabilities.firesTouchEvents
+	How should tabbing into the button work?
+	Does this leak memory with the events?
 	*/
 
 	export let width = 100;
@@ -26,6 +31,8 @@
 	let clickDownEffectFinished = false;
 	let clickEnded = false;
 	let clicking = false;
+
+	$: console.log(hovering, clicking)
 
 	const CIRCLE_TO_SQUARE = Math.SQRT1_2;
 	const onHover = _ => {
@@ -69,12 +76,12 @@
 		animation.commitStyles();
 	};
 
-	const onClickStartInternal = e => {
+	const onInputStart = (x, y) => {
 		if (onClickStart) onClickStart();
 
 		let rect = buttonElement.getBoundingClientRect();
-		clickEffectX = ((e.clientX - rect.left) / rect.width) * 100;
-		clickEffectY = ((e.clientY  - rect.top) / rect.height) * 100;
+		clickEffectX = ((x - rect.left) / rect.width) * 100;
+		clickEffectY = ((y  - rect.top) / rect.height) * 100;
 		let squareSize = (Math.max(Math.abs(clickEffectX - 50), Math.abs(clickEffectY - 50)) * 2) + (growAmount * 100);
 		clickEffectScale = (squareSize / CIRCLE_TO_SQUARE) + "%";
 
@@ -102,7 +109,7 @@
 		clickEnded = false;
 		clicking = true;
 	};
-	const onClickEndInternal = _ => {
+	const onInputEnd = _ => {
 		if (onClick) onClick();
 
 		clickEnded = true;
@@ -110,6 +117,50 @@
 			animateClickEffectBack();
 		}
 	};
+	const onContextMenu = e => {
+		if (e.sourceCapabilities.firesTouchEvents) {
+			e.preventDefault();
+		}
+	};
+
+	const onClickStartInternal = e => {
+		if (! hovering) return;
+		if (e.sourceCapabilities.firesTouchEvents) return;
+		if (e.button != 0) return;
+
+		onInputStart(e.clientX, e.clientY);
+	};
+	const onClickEndInternal = e => {
+		if (e.sourceCapabilities.firesTouchEvents) return;
+		if (e.button != 0) return;
+
+		onInputEnd();
+	};
+	const onTouchStart = e => {
+		if (! hovering) return;
+
+		onInputStart(e.touches[0].clientX, e.touches[0].clientY);
+	};
+	const onTouchEnd = _ => {
+		hovering = false;
+
+		onInputEnd();
+	};
+
+	onMount(_ => {
+		document.addEventListener("mousedown", onClickStartInternal);
+		document.addEventListener("mouseup", onClickEndInternal);
+		document.addEventListener("touchstart", onTouchStart);
+		document.addEventListener("touchend", onTouchEnd);
+
+		return _ => {
+			document.removeEventListener("mousedown", onClickStartInternal);
+			document.removeEventListener("mouseup", onClickEndInternal);
+			document.removeEventListener("touchstart", onTouchStart);
+			document.removeEventListener("touchend", onTouchEnd);
+		}
+	});
+
 	const onClickAnimEnded = _ => {
 		setTimeout(_ => {
 			if (clickEnded) animateClickEffectBack();
@@ -141,7 +192,15 @@
 </script>
 
 <main style="--width:{width}px;--height:{height}px;--color:{color};--growAmount:{growAmount};--shrinkAmount:{shrinkAmount}">
-	<button on:mouseenter={onHover} on:mouseleave={onHoverEnd} on:mousedown={onClickStartInternal} on:mouseup={onClickEndInternal} class:hover={hovering} class:click={clicking} bind:this={buttonElement}>
+	<button
+		on:mouseenter={onHover}
+		on:mouseleave={onHoverEnd}
+		on:contextmenu={onContextMenu}
+
+		class:hover={hovering || clicking}
+		class:click={clicking}
+		bind:this={buttonElement}
+	>
 		<div class="hover effect" bind:this={hoverEffectElement}></div>
 		<div class="click effect" bind:this={clickEffectElement} style="top:{clickEffectY}%;left:{clickEffectX}%"></div>
 		<div class="content">
