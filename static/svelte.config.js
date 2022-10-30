@@ -1,4 +1,4 @@
-const URL_PREFIX = "SvelteKit-Template"; // <-- Set this to the repository name if you're hosting on GitHub Pages (unless it's your homepage site), as all the URLs will need to be prefixed with it. If you don't want a prefix, set it to an empty string
+const URL_PREFIX = "Fancy-Buttons"; // <-- Set this to the repository name if you're hosting on GitHub Pages (unless it's your homepage site), as all the URLs will need to be prefixed with it. If you don't want a prefix, set it to an empty string
 
 
 import adapter from "@sveltejs/adapter-static";

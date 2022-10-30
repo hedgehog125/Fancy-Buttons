@@ -1,5 +1,5 @@
 const BUILD_PATH = "../static/build";
-const DEPLOY_PATH = "../../Deploys/SvelteKit-Template/";
+const DEPLOY_PATH = "../../Deploys/Fancy-Buttons/";
 const CONFIGURED = true;
 
 
