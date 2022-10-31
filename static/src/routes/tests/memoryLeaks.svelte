@@ -13,7 +13,7 @@
 <main>
 	{#if visible}
 		{#each new Array(100) as _}  
-			<FancyButton {onClick}>
+			<FancyButton onAfterClick={onClick}>
 				Click to delete all the buttons
 			</FancyButton>
 		{/each}

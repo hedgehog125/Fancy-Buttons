@@ -4,7 +4,7 @@
 	/*
 	TODO
 
-	Does this leak memory with the events?
+	Honor @media (prefers-reduced-motion)
 	*/
 
 	export let width = 100;
@@ -13,6 +13,7 @@
 
 	export let onClick = null;
 	export let onClickStart = null;
+	export let onAfterClick = null;
 
 	const growAmount = 1.05;
 	const shrinkAmount = 0.95;
@@ -206,6 +207,9 @@
 			easing: "ease-in-out",
 			fill: "forwards"
 		});
+		animation.onfinish = _ => {
+			if (onAfterClick) onAfterClick();
+		};
 		animation.commitStyles();
 	};
 </script>
