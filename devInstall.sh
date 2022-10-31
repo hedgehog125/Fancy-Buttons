@@ -5,7 +5,7 @@ echo "Installing...
 echo "
 == 1/3: Installing static server dependencies ==
 "
-cd ../static
+cd static
 npm install
 
 echo "
