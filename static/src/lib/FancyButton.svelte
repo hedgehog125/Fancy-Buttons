@@ -237,7 +237,8 @@
 	* {
 		pointer-events: none;
 		touch-action: none;
-
+	}
+	*, button > * { /* The second one is to raise specificity so it overrides what's inherited from button */
 		user-select: none;
 		-webkit-tap-highlight-color: transparent;
 		-webkit-touch-callout: none;
@@ -297,15 +298,6 @@
 		border-radius: calc((var(--height) * var(--shrinkAmount)) / 2);
 		border-width: 1.5px;
 	}
-	button > * {
-		/* And unset them so they inherit the properties that prevent selection */
-		user-select: unset;
-		-webkit-touch-callout: unset;
-		-webkit-user-select: unset;
-		-khtml-user-select: unset;
-		-moz-user-select: unset;
-		-ms-user-select: unset;
-	}
 
 	.effect, .content {
 		position: absolute;
@@ -328,7 +320,6 @@
 	.content {
 		font-size: 20px;
 		font-weight: bold;
-		user-select: unset;
 
 		transition-property: letter-spacing;
 		transition-duration: 0.25s;
