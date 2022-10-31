@@ -4,8 +4,6 @@
 	/*
 	TODO
 
-	Handle hold touches. Prevent context menu. Doesn't seem to trigger the mouse events as well. Maybe use e.sourceCapabilities.firesTouchEvents
-	How should tabbing into the button work?
 	Does this leak memory with the events?
 	*/
 
@@ -21,6 +19,7 @@
 	const minClickEffectStayTime = 150;
 
 	let buttonElement;
+	let contentElement;
 	let hoverEffectElement;
 	let hovering = false;
 
@@ -32,10 +31,11 @@
 	let clickEnded = false;
 	let clicking = false;
 
-	$: console.log(hovering, clicking)
-
 	const CIRCLE_TO_SQUARE = Math.SQRT1_2;
-	const onHover = _ => {
+	const shouldIgnoreInput = e => e.target != buttonElement && e.target != contentElement;
+
+	const onHover = e => {
+		if (shouldIgnoreInput(e)) return;
 		hovering = true;
 
 		let animation = hoverEffectElement.animate([
@@ -57,7 +57,8 @@
 		});
 		animation.commitStyles();
 	};
-	const onHoverEnd = _ => {
+	const onHoverEnd = e => {
+		if (shouldIgnoreInput(e)) return;
 		hovering = false;
 
 		let animation = hoverEffectElement.animate([
@@ -76,12 +77,19 @@
 		animation.commitStyles();
 	};
 
-	const onInputStart = (x, y) => {
+	const onInputStart = (x = null, y = null) => {
 		if (onClickStart) onClickStart();
 
 		let rect = buttonElement.getBoundingClientRect();
-		clickEffectX = ((x - rect.left) / rect.width) * 100;
-		clickEffectY = ((y  - rect.top) / rect.height) * 100;
+		if (x == null) clickEffectX = 50;
+		else {
+			clickEffectX = ((x - rect.left) / rect.width) * 100;
+		}
+		if (y == null) clickEffectY = 50;
+		else {
+			clickEffectY = ((y  - rect.top) / rect.height) * 100;
+		}
+		
 		let squareSize = (Math.max(Math.abs(clickEffectX - 50), Math.abs(clickEffectY - 50)) * 2) + (growAmount * 100);
 		clickEffectScale = (squareSize / CIRCLE_TO_SQUARE) + "%";
 
@@ -124,6 +132,7 @@
 	};
 
 	const onClickStartInternal = e => {
+		if (shouldIgnoreInput(e)) return;
 		if (! hovering) return;
 		if (e.sourceCapabilities.firesTouchEvents) return;
 		if (e.button != 0) return;
@@ -131,17 +140,26 @@
 		onInputStart(e.clientX, e.clientY);
 	};
 	const onClickEndInternal = e => {
+		if (! clicking) return; // The target might have changed due to the button shrinking, so don't check it
 		if (e.sourceCapabilities.firesTouchEvents) return;
 		if (e.button != 0) return;
 
 		onInputEnd();
 	};
+	const onClickInternal = e => { // Clicks from things like the space bar
+		if (shouldIgnoreInput(e)) return;
+		if (e.pointerType == "mouse" || e.pointerType == "touch") return;
+
+		onInputStart(); // Assume the position isn't known, this will use the centre
+		onInputEnd();
+	};
 	const onTouchStart = e => {
-		if (! hovering) return;
+		if (shouldIgnoreInput(e)) return;
 
 		onInputStart(e.touches[0].clientX, e.touches[0].clientY);
 	};
-	const onTouchEnd = _ => {
+	const onTouchEnd = e => {
+		if (! clicking) return;
 		hovering = false;
 
 		onInputEnd();
@@ -163,6 +181,7 @@
 
 	const onClickAnimEnded = _ => {
 		setTimeout(_ => {
+			if (buttonElement == null) return; // It might have been deleted
 			if (clickEnded) animateClickEffectBack();
 			clickDownEffectFinished = true;
 		}, minClickEffectStayTime);
@@ -195,6 +214,7 @@
 	<button
 		on:mouseenter={onHover}
 		on:mouseleave={onHoverEnd}
+		on:click={onClickInternal}
 		on:contextmenu={onContextMenu}
 
 		class:hover={hovering || clicking}
@@ -203,7 +223,7 @@
 	>
 		<div class="hover effect" bind:this={hoverEffectElement}></div>
 		<div class="click effect" bind:this={clickEffectElement} style="top:{clickEffectY}%;left:{clickEffectX}%"></div>
-		<div class="content">
+		<div class="content" bind:this={contentElement}>
 			<slot></slot>
 		</div>
 	</button>
@@ -211,6 +231,9 @@
 
 <style>
 	* {
+		pointer-events: none;
+		touch-action: none;
+
 		user-select: none;
 		-webkit-tap-highlight-color: transparent;
 		-webkit-touch-callout: none;
@@ -218,6 +241,10 @@
 		-khtml-user-select: none;
 		-moz-user-select: none;
 		-ms-user-select: none;
+	}
+	button, .content {
+		pointer-events: auto; /* Add the events back */
+		touch-action: auto;
 	}
 
 	main {
@@ -227,6 +254,15 @@
 	}
 
 	button {
+		/* Allow selection just for this */
+		user-select: initial;
+		/* The highlight colour is deliberately excluded here so a long tap doesn't put a box around the button */
+		-webkit-touch-callout: initial;
+		-webkit-user-select: initial;
+		-khtml-user-select: initial;
+		-moz-user-select: initial;
+		-ms-user-select: initial;
+
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -256,6 +292,15 @@
 		height: calc(var(--height) * var(--shrinkAmount));
 		border-radius: calc((var(--height) * var(--shrinkAmount)) / 2);
 		border-width: 1.5px;
+	}
+	button > * {
+		/* And unset them so they inherit the properties that prevent selection */
+		user-select: unset;
+		-webkit-touch-callout: unset;
+		-webkit-user-select: unset;
+		-khtml-user-select: unset;
+		-moz-user-select: unset;
+		-ms-user-select: unset;
 	}
 
 	.effect, .content {
