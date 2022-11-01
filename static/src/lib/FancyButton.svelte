@@ -79,7 +79,7 @@
 	};
 
 	const onInputStart = (x = null, y = null) => {
-		if (onClickStart) onClickStart();
+		if (onClickStart) onClickStart(buttonElement);
 
 		let rect = buttonElement.getBoundingClientRect();
 		if (x == null) clickEffectX = 50;
@@ -119,7 +119,7 @@
 		clicking = true;
 	};
 	const onInputEnd = _ => {
-		if (onClick) onClick();
+		if (onClick) onClick(buttonElement);
 
 		clickEnded = true;
 		if (clickDownEffectFinished) {
@@ -134,7 +134,6 @@
 
 	const onClickStartInternal = e => {
 		if (shouldIgnoreInput(e)) return;
-		if (! hovering) return;
 		if (e.sourceCapabilities.firesTouchEvents) return;
 		if (e.button != 0) return;
 
@@ -208,7 +207,7 @@
 			fill: "forwards"
 		});
 		animation.onfinish = _ => {
-			if (onAfterClick) onAfterClick();
+			if (onAfterClick) onAfterClick(buttonElement);
 		};
 		animation.commitStyles();
 	};
