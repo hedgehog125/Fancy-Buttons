@@ -25,7 +25,7 @@
 		});
 		animation.commitStyles();
 		animation.onfinish = _ => {
-			if (! forwards) {
+			if ((! forwards) && navURL) {
 				goto(navURL);
 			}
 		};
