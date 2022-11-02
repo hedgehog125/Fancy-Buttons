@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "app/immutable/start-44cb4919.js",
+    "file": "app/immutable/start-01522751.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -34,7 +34,7 @@
     ]
   },
   "src/routes/another-page.svelte": {
-    "file": "app/immutable/pages/another-page.svelte-412a8e4d.js",
+    "file": "app/immutable/pages/another-page.svelte-3f18c4b4.js",
     "src": "src/routes/another-page.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -97,12 +97,12 @@
     "file": "app/immutable/assets/another-page-5d09b080.css",
     "src": "src/routes/another-page.css"
   },
-  "src/routes/index.css": {
-    "file": "app/immutable/assets/index-32f2b99f.css",
-    "src": "src/routes/index.css"
-  },
   "FancyButton.css": {
     "file": "app/immutable/assets/FancyButton-336733c7.css",
     "src": "FancyButton.css"
+  },
+  "src/routes/index.css": {
+    "file": "app/immutable/assets/index-32f2b99f.css",
+    "src": "src/routes/index.css"
   }
 }
