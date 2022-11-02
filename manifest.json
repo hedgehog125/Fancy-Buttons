@@ -1,52 +1,108 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "app/immutable/start-ac4627de.js",
+    "file": "app/immutable/start-44cb4919.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
-      "_index-3e013595.js"
+      "_index-ad4d38d1.js",
+      "_singletons-0c0466c6.js"
     ],
     "dynamicImports": [
       ".svelte-kit/runtime/components/layout.svelte",
       ".svelte-kit/runtime/components/error.svelte",
-      "src/routes/index.svelte"
+      "src/routes/another-page.svelte",
+      "src/routes/index.svelte",
+      "src/routes/tests/memoryLeaks.svelte"
     ]
   },
   ".svelte-kit/runtime/components/layout.svelte": {
-    "file": "app/immutable/layout.svelte-8fe2c2f4.js",
+    "file": "app/immutable/layout.svelte-e63745bc.js",
     "src": ".svelte-kit/runtime/components/layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-3e013595.js"
+      "_index-ad4d38d1.js"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
-    "file": "app/immutable/error.svelte-4ffeadf6.js",
+    "file": "app/immutable/error.svelte-9525b31f.js",
     "src": ".svelte-kit/runtime/components/error.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-3e013595.js"
+      "_index-ad4d38d1.js"
+    ]
+  },
+  "src/routes/another-page.svelte": {
+    "file": "app/immutable/pages/another-page.svelte-412a8e4d.js",
+    "src": "src/routes/another-page.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-ad4d38d1.js",
+      "_LinkPage-653fa2ed.js",
+      "_singletons-0c0466c6.js"
+    ],
+    "css": [
+      "app/immutable/assets/another-page-5d09b080.css"
     ]
   },
   "src/routes/index.svelte": {
-    "file": "app/immutable/pages/index.svelte-5c9a0d8c.js",
+    "file": "app/immutable/pages/index.svelte-f60eacdc.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
-      "_index-3e013595.js"
+      "_index-ad4d38d1.js",
+      "_LinkPage-653fa2ed.js",
+      "_FancyButton-24c9f499.js",
+      "_singletons-0c0466c6.js"
     ],
     "css": [
-      "app/immutable/assets/index-f16ef217.css"
+      "app/immutable/assets/index-32f2b99f.css"
     ]
   },
-  "_index-3e013595.js": {
-    "file": "app/immutable/chunks/index-3e013595.js"
+  "src/routes/tests/memoryLeaks.svelte": {
+    "file": "app/immutable/pages/tests/memoryLeaks.svelte-4ea8e1a5.js",
+    "src": "src/routes/tests/memoryLeaks.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-ad4d38d1.js",
+      "_FancyButton-24c9f499.js"
+    ]
+  },
+  "_index-ad4d38d1.js": {
+    "file": "app/immutable/chunks/index-ad4d38d1.js"
+  },
+  "_singletons-0c0466c6.js": {
+    "file": "app/immutable/chunks/singletons-0c0466c6.js"
+  },
+  "_LinkPage-653fa2ed.js": {
+    "file": "app/immutable/chunks/LinkPage-653fa2ed.js",
+    "imports": [
+      "_singletons-0c0466c6.js"
+    ]
+  },
+  "_FancyButton-24c9f499.js": {
+    "file": "app/immutable/chunks/FancyButton-24c9f499.js",
+    "imports": [
+      "_index-ad4d38d1.js"
+    ],
+    "css": [
+      "app/immutable/assets/FancyButton-336733c7.css"
+    ]
+  },
+  "src/routes/another-page.css": {
+    "file": "app/immutable/assets/another-page-5d09b080.css",
+    "src": "src/routes/another-page.css"
   },
   "src/routes/index.css": {
-    "file": "app/immutable/assets/index-f16ef217.css",
+    "file": "app/immutable/assets/index-32f2b99f.css",
     "src": "src/routes/index.css"
+  },
+  "FancyButton.css": {
+    "file": "app/immutable/assets/FancyButton-336733c7.css",
+    "src": "FancyButton.css"
   }
 }
