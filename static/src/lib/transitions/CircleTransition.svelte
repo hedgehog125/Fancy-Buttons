@@ -2,19 +2,18 @@
 	/*
 	TODO
 
-	Fix position when scrolling. It's fine if it loses the position while scrolling though, it's just too high up to cover the screen. Use window.scrollX
 	*/
 
-	let active = false;
 	let x = 0;
 	let y = 0;
 	let color = "red";
 
 	let circleElement;
+	let resolveAnimationPromise;
 
 	const SQUARE_TO_CIRCLE = 1 / Math.SQRT1_2;
 
-	export const animate = posElement => {
+	export const animate = (posElement, forwards = true) => {
 		const rect = posElement.getBoundingClientRect();
 		x = rect.left + (rect.width / 2);
 		y = rect.top + (rect.height / 2);
@@ -29,17 +28,37 @@
 		const endCircleSize = Math.ceil(endSquareSize * SQUARE_TO_CIRCLE);
 		const cssSize = endCircleSize + "px";
 
-		circleElement.animate({
-			width: cssSize,
-			height: cssSize
-		}, {
-			delay: 150,
+		const promise = new Promise(resolve => {
+			resolveAnimationPromise = resolve;
+		});
+
+		const animation = circleElement.animate(
+			forwards? {
+				width: cssSize,
+				height: cssSize
+			} : [
+				{
+					width: cssSize,
+					height: cssSize
+				},
+				{
+					width: "0px",
+					height: "0px"
+				}
+			]
+		, {
+			delay: forwards? 200 : 0,
 			duration: 500,
 			iterations: 1,
 			easing: "ease-in-out",
 			fill: "forwards"
-		}).commitStyles();
-		active = true;
+		});
+		animation.commitStyles();
+		animation.onfinish = _ => {
+			resolveAnimationPromise();
+		};
+
+		return promise;
 	};
 </script>
 
@@ -56,13 +75,16 @@
 		top: 0px;
 		bottom: 0px;
 		overflow: hidden;
+		z-index: 100;
+
+		pointer-events: none;
+		touch-action: none;
 	}
 	.circle {
 		position: absolute;
 		top: var(--y);
 		left: var(--x);
 		transform: translate(-50%, -50%);
-		z-index: 100;
 		border-radius: 50%;
 
 

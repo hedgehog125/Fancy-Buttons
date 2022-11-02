@@ -10,6 +10,8 @@
 	export let width = 100;
 	export let height = 100;
 	export let color = "#00DE00";
+	export let button = null;
+	$: button = buttonElement;
 
 	export let onClick = null;
 	export let onClickStart = null;

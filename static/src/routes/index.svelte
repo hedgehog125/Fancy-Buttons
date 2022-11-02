@@ -1,17 +1,42 @@
 <script>
+	import linkPage from "$util/LinkPage.js";
+	import { prefetch, goto } from "$app/navigation";
+
 	import FancyButton from "$lib/FancyButton.svelte";
-	import CircleTransition from "../transitions/CircleTransition.svelte";
+	import CircleTransition from "$lib/transitions/CircleTransition.svelte";
 
 	let animate;
-	const onClick = element => {
-		animate(element);
+	let buttonElement;
+	const onClickStart = _ => {
+		prefetch(linkPage("another-page"));
+	};
+	const onClick = _ => {
+		animate(buttonElement).then(_ => {
+			goto(linkPage("another-page"));
+		});
+	};
+
+	$: if (shouldAnimateBack && buttonElement) animate(buttonElement, false);
+
+	let shouldAnimateBack = false;
+	const animateBack = _ => {
+		if (buttonElement) {
+			animate(buttonElement, false);
+		}
+		else {
+			shouldAnimateBack = true;
+		}
+
+		return {
+			duration: 500
+		};
 	};
 </script>
 
-<main>
+<main in:animateBack>
 	<CircleTransition bind:animate={animate}></CircleTransition>
 	<div class="center">
-		<FancyButton {onClick}>
+		<FancyButton {onClickStart} {onClick} bind:button={buttonElement}>
 			Testing
 		</FancyButton>
 	</div>
@@ -24,8 +49,8 @@
 	.center {
 		display: inline;
 		position: absolute;
-		top: 75px;
-		left: 600px;
+		top: 50%;
+		left: 50%;
 		transform: translate(-50%, -50%);
 	}
 
