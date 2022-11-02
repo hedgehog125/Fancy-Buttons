@@ -49,7 +49,6 @@
 		, {
 			delay: forwards? 200 : 0,
 			duration: 500,
-			iterations: 1,
 			easing: "ease-in-out",
 			fill: "forwards"
 		});

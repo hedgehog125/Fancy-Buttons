@@ -54,7 +54,6 @@
 			}
 		], {
 			duration: 250,
-			iterations: 1,
 			easing: "ease-in-out",
 			fill: "forwards"
 		});
@@ -73,7 +72,6 @@
 			}
 		], {
 			duration: 500,
-			iterations: 1,
 			easing: "ease-in-out",
 			fill: "forwards"
 		});
@@ -109,7 +107,6 @@
 			}
 		], {
 			duration: 200,
-			iterations: 1,
 			easing: "ease-in-out",
 			fill: "forwards"
 		});
@@ -204,7 +201,6 @@
 			}
 		], {
 			duration: 400,
-			iterations: 1,
 			easing: "ease-in-out",
 			fill: "forwards"
 		});

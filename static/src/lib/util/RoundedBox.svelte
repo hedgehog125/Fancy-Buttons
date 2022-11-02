@@ -18,10 +18,13 @@
 		];
 		if (! forwards) keyframes.reverse();
 
-		element.animate(keyframes, {
+		const animation = element.animate(keyframes, {
 			duration: 500,
-			easing: "ease-in-out"
-		}).onfinish = _ => {
+			easing: "ease-in-out",
+			fill: "forwards"
+		});
+		animation.commitStyles();
+		animation.onfinish = _ => {
 			if (! forwards) {
 				goto(navURL);
 			}
