@@ -4,7 +4,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"testBuild": "DISABLE_BASE_URL=true vite build",
+		"testBuild": "cross-env DISABLE_BASE_URL=true vite build",
 		"package": "svelte-kit package",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync"
@@ -12,12 +12,10 @@
 	"devDependencies": {
 		"@sveltejs/adapter-static": "1.0.0-next.38",
 		"@sveltejs/kit": "1.0.0-next.391",
+		"cross-env": "^7.0.3",
 		"html-minifier": "^4.0.0",
 		"svelte": "^3.46.0",
 		"vite": "^3.0.0"
 	},
-	"type": "module",
-	"dependencies": {
-		
-	}
+	"type": "module"
 }

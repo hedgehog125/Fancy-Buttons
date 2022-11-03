@@ -37,6 +37,7 @@
 	let navigating = false;
 	let navURL;
 	beforeNavigate(nav => {
+		console.log(nav);
 		if (nav.to == null) return; // Ignore the initial navigation
 		if (nav.to.pathname != linkPage(backURL)) return;
 		if (navigating) return; // Ignore the event from the navigation continuing after the animation
