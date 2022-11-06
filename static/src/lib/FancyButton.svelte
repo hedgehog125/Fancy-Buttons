@@ -6,6 +6,7 @@
 
 	Fix bug in build that causes weird back animation. Something to do with slower network speeds maybe? Or a separate issue?
 	Work out how to better coordinate all the parts
+	Register events using svelte: document instead of using on mount
 	Honor @media (prefers-reduced-motion)
 	*/
 
