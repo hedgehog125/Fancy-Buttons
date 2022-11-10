@@ -1,6 +1,7 @@
 <script>
 	import { beforeNavigate, goto } from "$app/navigation";
 	import linkPage from "$util/LinkPage.js";
+    import { onMount } from "svelte";
 
 	export let color = "white";
 	export let backURL;
@@ -34,9 +35,17 @@
 		};
 	};
 
+	onMount(_ => {
+		console.trace("Mounted");
+		return _ => {
+			console.trace(`Dismounted. Navigating: ${navigating}`);
+		};
+	});
+
 	let navigating = false;
 	let navURL;
 	beforeNavigate(nav => {
+		console.trace(`Navigating to ${nav.to == null? "blank" : nav.to.pathname} from ${nav.from == null? "blank" : nav.from.pathname}. NavURL: ${navURL} | Navigating: ${navigating}`);
 		if (nav.to == null) return; // Ignore the initial navigation
 		if (nav.to.pathname != linkPage(backURL)) return;
 		if (navigating) return; // Ignore the event from the navigation continuing after the animation
