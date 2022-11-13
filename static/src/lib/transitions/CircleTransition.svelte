@@ -14,7 +14,6 @@
 	const SQUARE_TO_CIRCLE = 1 / Math.SQRT1_2;
 
 	export const animate = (posElement, forwards = true) => {
-		console.trace("Animating");
 		const rect = posElement.getBoundingClientRect();
 		x = rect.left + (rect.width / 2);
 		y = rect.top + (rect.height / 2);
@@ -58,7 +57,6 @@
 			resolveAnimationPromise();
 		};
 
-		console.trace("---");
 		return promise;
 	};
 </script>

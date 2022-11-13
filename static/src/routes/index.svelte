@@ -4,7 +4,6 @@
 
 	import FancyButton from "$lib/FancyButton.svelte";
 	import CircleTransition from "$lib/transitions/CircleTransition.svelte";
-    import { onMount } from "svelte";
 
 	let animate;
 	let buttonElement;
@@ -18,15 +17,9 @@
 	};
 
 	let shouldAnimateBack = false;
-	$: {
-		console.trace(`Event rerun. Button element: ${buttonElement}. Should animate back: ${shouldAnimateBack}`);
-		if (shouldAnimateBack && buttonElement) console.trace("Animating due to event");
-		if (shouldAnimateBack && buttonElement) animate(buttonElement, false);
-	}
+	$: if (shouldAnimateBack && buttonElement) animate(buttonElement, false);
 
 	const animateBack = _ => {
-		console.trace(`Animate back. Button element: ${buttonElement}. Should animate back: ${shouldAnimateBack}`);
-		if (buttonElement) console.trace("Animating due to conditions already met.");
 		if (buttonElement) {
 			animate(buttonElement, false);
 		}
@@ -38,10 +31,6 @@
 			duration: 500
 		};
 	};
-
-	onMount(_ => {
-		return _ => {console.trace("Index.html unmounted")};
-	});
 </script>
 
 <main in:animateBack>
