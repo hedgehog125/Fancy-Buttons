@@ -1,1 +1,0 @@
-import{c as t,b as a}from"./singletons-0c0466c6.js";t.disable_scroll_handling;const s=t.goto;t.invalidate;const n=t.prefetch;t.prefetch_routes;const i=t.before_navigate;t.after_navigate;const c=e=>(e[e.length-1]=="/"&&(e=e.slice(0,e.length-1)),a+"/"+e);export{i as b,s as g,c as l,n as p};
